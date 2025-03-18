@@ -1,5 +1,7 @@
-    public interface Empilhavel {
-    /*
+package Pilha.pilhaEstatica.Pilha;
+
+public interface Empilhavel {
+/*
     Operações principais
     1-Empilhar//push
     2-Desempilhar//pop
@@ -13,12 +15,13 @@
 
     void push(Object o);
     Object pop();
-    Object top();
+    //Object top();
     boolean isFull();
     boolean isEmpty();
+    Object peek();
     //duas formas:
-    void print1();
-    String print2();
+    String print();
+    //void print();
     void update(Object o);
   
 } 
