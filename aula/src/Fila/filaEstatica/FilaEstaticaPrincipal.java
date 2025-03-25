@@ -1,5 +1,5 @@
 
-package Fila;
+package Fila.filaEstatica;
 
 public class FilaEstaticaPrincipal {
     public static void main(String[] args) {
@@ -21,5 +21,6 @@ public class FilaEstaticaPrincipal {
         fila.enfileirar("J");
         fila.enfileirar("K");
         System.out.println("Fila: " + fila.imprimir());
+      
     }
 }

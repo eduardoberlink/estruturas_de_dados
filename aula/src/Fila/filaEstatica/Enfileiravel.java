@@ -1,4 +1,4 @@
-package Fila;
+package Fila.filaEstatica;
 //Fila (Queue)
 
 //Fila circular (Cycle Queue)
@@ -10,9 +10,9 @@ public interface Enfileiravel {
 
     Object frente(); // R front
 
-    void atualizarInicio(Object dado); // U update
+    void updateInicio(Object dado); // U update
 
-    void atualizarFim(Object dado); // U update
+    void updateFim(Object dado); // U update
 
     Object desenfileirar(); // D dequeue
                             // S sort

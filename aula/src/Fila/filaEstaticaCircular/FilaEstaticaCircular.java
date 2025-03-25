@@ -1,49 +1,54 @@
-package Fila;
+package Fila.filaEstaticaCircular;
 
-public class FilaEstatica implements Enfileiravel {
+public class FilaEstaticaCircular implements Enfileiravel {
+
     // variaveis de instancia
     private Object[] dados;
     private int ponteiroInicio;
     private int ponteiroFim;
+    private int quantidade;
 
     // construtores
-    public FilaEstatica() {
+    public FilaEstaticaCircular() {
         this(10);
     }
 
-    public FilaEstatica(int tamanho) {
+    public FilaEstaticaCircular(int tamanho) {
         dados = new Object[tamanho];
         ponteiroInicio = 0;
         ponteiroFim = -1;
+        quantidade = 0;
     }
 
     // metodos auxiliares
     @Override
     public boolean estaCheia() {
-        return (ponteiroFim == dados.length - 1);
+        return (quantidade == dados.length);
     }
 
     @Override
     public boolean estaVazia() {
-        return (ponteiroFim == ponteiroInicio - 1);
+        return (quantidade == 0);
     }
 
     @Override
     public String imprimir() {
         String retorno = "[";
-        for (int i = ponteiroInicio; i <= ponteiroFim; i++) {
-            if (i == ponteiroFim) {
-                retorno += dados[i];
+        for (int i = ponteiroInicio; i < quantidade + ponteiroInicio; i++) {
+            // if(i == dados.lenght)
+            // i = 0;
+            if (i == quantidade + ponteiroInicio - 1) {
+                retorno += dados[i % dados.length];
             } else {
-                retorno += dados[i] + ",";
+                retorno += dados[i % dados.length] + ",";
             }
         }
-        return retorno + "]";
+        return retorno + "]".toString();
     }
 
     // metodos principais
     @Override
-    public void atualizarInicio(Object dado) {
+    public void updateInicio(Object dado) {
         if (!estaVazia()) {
             dados[ponteiroInicio] = dado;
         } else {
@@ -52,7 +57,7 @@ public class FilaEstatica implements Enfileiravel {
     }
 
     @Override
-    public void atualizarFim(Object dado) {
+    public void updateFim(Object dado) {
         if (!estaVazia()) {
             dados[ponteiroFim] = dado;
         } else {
@@ -76,7 +81,8 @@ public class FilaEstatica implements Enfileiravel {
         Object aux = null;
         if (!estaVazia()) {
             aux = dados[ponteiroInicio];
-            ponteiroInicio++;
+            ponteiroInicio = (ponteiroInicio + 1) % dados.length;
+            quantidade--;
         } else {
             System.err.println("Queue is empty!");
         }
@@ -86,12 +92,12 @@ public class FilaEstatica implements Enfileiravel {
     @Override
     public void enfileirar(Object dado) {
         if (!estaCheia()) {
-            ponteiroFim++;
+            ponteiroFim = (ponteiroFim + 1) % dados.length;
             dados[ponteiroFim] = dados;
+            quantidade++;
         } else {
             System.err.println("Queue is full");
         }
-
     }
 
 }
