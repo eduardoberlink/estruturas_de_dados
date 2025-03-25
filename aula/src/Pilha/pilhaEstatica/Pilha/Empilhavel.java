@@ -1,5 +1,6 @@
 package Pilha.pilhaEstatica.Pilha;
 
+
 public interface Empilhavel {
 /*
     Operações principais

@@ -1,5 +1,4 @@
 package Pilha.pilhaEstatica.Pilha;
-
 public class PilhaEstatica implements Empilhavel {
     private int ponteiroTopo;
 	private Object[] dados;
