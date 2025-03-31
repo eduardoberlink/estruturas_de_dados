@@ -43,7 +43,7 @@ public class FilaEstaticaCircular implements Enfileiravel {
                 retorno += dados[i % dados.length] + ",";
             }
         }
-        return retorno + "]".toString();
+        return retorno + "]";
     }
 
     // metodos principais
