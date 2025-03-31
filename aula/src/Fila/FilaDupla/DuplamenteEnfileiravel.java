@@ -1,10 +1,10 @@
-package Fila;
+package Fila.FilaDupla;
 
 public interface DuplamenteEnfileiravel {
 
-    void enfilerarInicio(Object dado);
+    void enfileirarInicio(Object dado);
 
-    void enfilerarFim(Object dado);
+    void enfileirarFim(Object dado);
 
     Object frente();
 
@@ -14,9 +14,9 @@ public interface DuplamenteEnfileiravel {
 
     void atualizarFim(Object dado);
 
-    Object desenfilerarInicio();
+    Object desenfileirarInicio();
 
-    Object desenfilerarFim();
+    Object desenfileirarFim();
 
     boolean estaCheia();
 
