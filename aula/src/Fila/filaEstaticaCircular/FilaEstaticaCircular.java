@@ -93,7 +93,7 @@ public class FilaEstaticaCircular implements Enfileiravel {
     public void enfileirar(Object dado) {
         if (!estaCheia()) {
             ponteiroFim = (ponteiroFim + 1) % dados.length;
-            dados[ponteiroFim] = dados;
+            dados[ponteiroFim] = dado;
             quantidade++;
         } else {
             System.err.println("Queue is full");
