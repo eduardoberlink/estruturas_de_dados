@@ -22,5 +22,6 @@ public interface DuplamenteEnfileiravel {
 
     boolean estaVazia();
 
-    String imprimir();
+    String imprimirTrasFrente();
+    String imprimirFrenteTras();
 }
