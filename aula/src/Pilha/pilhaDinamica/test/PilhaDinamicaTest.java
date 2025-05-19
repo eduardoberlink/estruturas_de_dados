@@ -11,104 +11,225 @@ import static org.junit.Assert.*;
 public class PilhaDinamicaTest {
 
   @Test
-  public void testEmpilhar() {
-    Empilhavel pilha = new PilhaDinamicaGenerica(5);
-    pilha.empilhar("Instituto");
-    String conteudo = (String) pilha.espiar();
-    assertEquals("Instituto", conteudo);
-  }
-
-  @Test
-  public void testDesempilhar() {
-    Empilhavel pilha = new PilhaDinamicaGenerica(5);
-    pilha.empilhar("Instituto");
-    String conteudo = (String) pilha.desempilhar();
-    assertEquals("Instituto", conteudo);
-  }
-
-  @Test
-  public void testEspiar() {
-    Empilhavel pilha = new PilhaDinamicaGenerica(5);
-    pilha.empilhar("Instituto");
-    pilha.empilhar("Federal");
-    String conteudo = (String) pilha.espiar();
-    assertEquals("Federal", conteudo);
-  }
-
-  @Test
-  public void testAtualizar() {
-    Empilhavel pilha = new PilhaDinamicaGenerica(5);
-    pilha.empilhar("Instituto");
-    pilha.empilhar("Federal");
-    pilha.atualizar("Municipal");
-    String conteudo = (String) pilha.espiar();
-    assertEquals("Municipal", conteudo);
-  }
-
-  @Test
-  public void testImprimir() {
-    Empilhavel pilha = new PilhaDinamicaGenerica(5);
-    pilha.empilhar("Instituto");
-    pilha.empilhar("Federal");
-    pilha.empilhar("de");
-    String resultado = pilha.imprimir();
-    assertTrue(resultado.contains("Instituto"));
-    assertTrue(resultado.contains("Federal"));
-    assertTrue(resultado.contains("de"));
-  }
-
-  @Test
-  public void testPilhaCheiaEmpilhar() {
-    Empilhavel pilha = new PilhaDinamicaGenerica(1);
-    pilha.empilhar("Instituto");
-    try {
-      pilha.empilhar("Federal");// deve lançar exceção
-      // Se chegou aqui, a exceção não foi lançada!
-      fail("Deveria ter acontecido um overflow!");
-    } catch (NoSuchElementException e) {
-      assertEquals("Pilha Cheia!", e.getMessage());
+    public void testPilhaComDiferentesTipos() {
+        Empilhavel<Integer> pilhaInt = new PilhaDinamicaGenerica<>(2);
+        pilhaInt.empilhar(1);
+        pilhaInt.empilhar(2);
+        assertEquals(Integer.valueOf(2), pilhaInt.espiar());
+        
+        Empilhavel<Double> pilhaDouble = new PilhaDinamicaGenerica<>(2);
+        pilhaDouble.empilhar(1.5);
+        pilhaDouble.empilhar(2.5);
+        assertEquals(Double.valueOf(2.5), pilhaDouble.espiar());
     }
-  }
 
-  @Test
-  public void testPilhaVaziaDesempilhar() {
-    Empilhavel pilha = new PilhaDinamicaGenerica(1);
-    pilha.empilhar("Instituto");
-    pilha.desempilhar();
-    try {
-      pilha.desempilhar(); // deve lançar exceção
-      // Se chegou aqui, a exceção não foi lançada!
-      fail("Deveria ter acontecido um underflow!");
-    } catch (NoSuchElementException e) {
-      assertEquals("Pilha Vazia!", e.getMessage());
+    @Test
+    public void testConstrutorPadrao() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>();
+        // Deve permitir 10 elementos
+        for (int i = 0; i < 10; i++) {
+            pilha.empilhar("Elemento" + i);
+        }
+        assertTrue(pilha.estaCheia());
+        try {
+            pilha.empilhar("Extra");
+            fail("Deveria ter lançado exceção de pilha cheia!");
+        } catch (NoSuchElementException e) {
+            assertEquals("Pilha Cheia!", e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testPilhaVaziaEspiar() {
-    Empilhavel pilha = new PilhaDinamicaGenerica(1);
-    pilha.empilhar("Instituto");
-    pilha.desempilhar();
-    try {
-      pilha.espiar(); // deve lançar exceção
-      // Se chegou aqui, a exceção não foi lançada!
-      fail("Deveria ter acontecido um underflow!");
-    } catch (NoSuchElementException e) {
-      assertEquals("Pilha Vazia!", e.getMessage());
+    @Test
+    public void testConstrutorComTamanhoPersonalizado() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(5);
+        // Deve permitir 5 elementos
+        for (int i = 0; i < 5; i++) {
+            pilha.empilhar("Elemento" + i);
+        }
+        assertTrue(pilha.estaCheia());
+        try {
+            pilha.empilhar("Extra");
+            fail("Deveria ter lançado exceção de pilha cheia!");
+        } catch (NoSuchElementException e) {
+            assertEquals("Pilha Cheia!", e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testPilhaVaziaAtualizar() {
-    Empilhavel pilha = new PilhaDinamicaGenerica(1);
-    pilha.empilhar("Instituto");
-    pilha.desempilhar();
-    try {
-      pilha.atualizar("Federal"); // deve lançar exceção
-      // Se chegou aqui, a exceção não foi lançada!
-      fail("Deveria ter acontecido um underflow!");
-    } catch (NoSuchElementException e) {
-      assertEquals("Pilha Vazia!", e.getMessage());
+    @Test
+    public void testEmpilhar() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(1);
+        pilha.empilhar("Instituto");
+        assertEquals("Instituto", pilha.espiar());
     }
-  }
+
+    @Test
+    public void testEmpilharMultiplosElementos() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(3);
+        pilha.empilhar("A");
+        pilha.empilhar("B");
+        pilha.empilhar("C");
+        assertEquals("C", pilha.espiar());
+        assertEquals("[C,B,A]", pilha.imprimir());
+    }
+
+    @Test
+    public void testDesempilhar() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(1);
+        pilha.empilhar("Instituto");
+        String conteudo = pilha.desempilhar();
+        assertEquals("Instituto", conteudo);
+    }
+
+    @Test
+    public void testDesempilharMultiplosElementos() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(3);
+        pilha.empilhar("A");
+        pilha.empilhar("B");
+        pilha.empilhar("C");
+        assertEquals("C", pilha.desempilhar());
+        assertEquals("B", pilha.desempilhar());
+        assertEquals("A", pilha.espiar());
+    }
+
+    @Test
+    public void testEspiar() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(5);
+        pilha.empilhar("Instituto");
+        pilha.empilhar("Federal");
+        assertEquals("Federal", pilha.espiar());
+    }
+
+    @Test
+    public void testAtualizar() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(1);
+        pilha.empilhar("Instituto");
+        pilha.atualizar("Universidade");
+        assertEquals("Universidade", pilha.espiar());
+    }
+
+    @Test
+    public void testAtualizarComMultiplosElementos() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(3);
+        pilha.empilhar("Primeiro");
+        pilha.empilhar("Segundo");
+        pilha.empilhar("Terceiro");
+        pilha.atualizar("Novo");
+        assertEquals("Novo", pilha.espiar());
+        pilha.desempilhar();
+        assertEquals("Segundo", pilha.espiar());
+    }
+
+    @Test
+    public void testImprimir() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(5);
+        pilha.empilhar("Instituto");
+        pilha.empilhar("Federal");
+        pilha.empilhar("de");
+        String resultado = pilha.imprimir();
+        assertTrue(resultado.contains("Instituto"));
+        assertTrue(resultado.contains("Federal"));
+        assertTrue(resultado.contains("de"));
+    }
+
+    @Test
+    public void testImprimirVaziaFormatacaoVazia() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(1);
+        assertEquals("[]", pilha.imprimir());
+    }
+    
+    @Test
+    public void testImprimirFormatacao() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(3);
+        pilha.empilhar("A");
+        pilha.empilhar("B");
+        pilha.empilhar("C");
+        assertEquals("[C,B,A]", pilha.imprimir());
+    }
+
+    @Test
+    public void testEstaCheia() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(2);
+        assertFalse(pilha.estaCheia());
+        pilha.empilhar("Primeiro");
+        assertFalse(pilha.estaCheia());
+        pilha.empilhar("Segundo");
+        assertTrue(pilha.estaCheia());
+    }
+    
+    @Test
+    public void testEstaVazia() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(2);
+        assertTrue(pilha.estaVazia());
+        pilha.empilhar("Primeiro");
+        assertFalse(pilha.estaVazia());
+        pilha.desempilhar();
+        assertTrue(pilha.estaVazia());
+    }
+
+    @Test
+    public void testPilhaCheiaEmpilhar() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(1);
+        pilha.empilhar("Instituto");
+        try {
+            pilha.empilhar("Federal"); // deve lançar exceção
+            fail("Deveria ter acontecido um overflow!");
+        } catch (NoSuchElementException e) {
+            assertEquals("Pilha Cheia!", e.getMessage());
+        }
+    }
+    
+    @Test
+    public void testPilhaVaziaDesempilhar() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(1);
+        pilha.empilhar("Instituto");
+        pilha.desempilhar();
+        try {
+            pilha.desempilhar(); // deve lançar exceção
+            fail("Deveria ter acontecido um underflow!");
+        } catch (NoSuchElementException e) {
+            assertEquals("Pilha Vazia!", e.getMessage());
+        }
+    } 
+
+    @Test
+    public void testPilhaVaziaEspiar() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(1);
+        pilha.empilhar("Instituto");
+        pilha.desempilhar();
+        try {
+            pilha.espiar(); // deve lançar exceção
+            fail("Deveria ter acontecido um underflow!");
+        } catch (NoSuchElementException e) {
+            assertEquals("Pilha Vazia!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testPilhaVaziaAtualizar() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(1);
+        pilha.empilhar("Instituto");
+        pilha.desempilhar();
+        try {
+            pilha.atualizar("Universidade"); // deve lançar exceção
+            fail("Deveria ter acontecido um underflow!");
+        } catch (NoSuchElementException e) {
+            assertEquals("Pilha Vazia!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testLimpezaPilha() {
+        Empilhavel<String> pilha = new PilhaDinamicaGenerica<>(2);
+        pilha.empilhar("A");
+        pilha.empilhar("B");
+        pilha.desempilhar();
+        pilha.desempilhar();
+        assertTrue(pilha.estaVazia());
+        try {
+            pilha.espiar();
+            fail("Deveria ter lançado exceção de pilha vazia!");
+        } catch (NoSuchElementException e) {
+            assertEquals("Pilha Vazia!", e.getMessage());
+        }
+    }
 }
