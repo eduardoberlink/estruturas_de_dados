@@ -1,4 +1,4 @@
-package Fila.filaEstatica;
+package Fila.FilaEstaticA.filaEstatica;
 //Fila (Queue)
 
 //Fila circular (Cycle Queue)

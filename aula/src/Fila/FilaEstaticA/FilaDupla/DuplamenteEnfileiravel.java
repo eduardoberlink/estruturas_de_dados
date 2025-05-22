@@ -1,4 +1,4 @@
-package Fila.FilaDupla;
+package Fila.FilaEstaticA.FilaDupla;
 
 public interface DuplamenteEnfileiravel {
 
@@ -23,5 +23,6 @@ public interface DuplamenteEnfileiravel {
     boolean estaVazia();
 
     String imprimirTrasFrente();
+
     String imprimirFrenteTras();
 }

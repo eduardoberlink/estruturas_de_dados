@@ -1,4 +1,4 @@
-package Fila.FilaComPilha;
+package Fila.FilaEstaticA.FilaComPilha;
 
 public interface Enfileiravel {
 

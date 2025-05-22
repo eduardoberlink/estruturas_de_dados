@@ -1,4 +1,4 @@
-package Fila.filaEstatica;
+package Fila.FilaEstaticA.filaEstatica;
 
 public class FilaEstatica implements Enfileiravel {
     // variaveis de instancia

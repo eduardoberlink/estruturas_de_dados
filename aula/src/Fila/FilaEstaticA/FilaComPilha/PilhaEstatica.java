@@ -1,4 +1,4 @@
-package Fila.FilaComPilha;
+package Fila.FilaEstaticA.FilaComPilha;
 
 public class PilhaEstatica implements Empilhavel {
     private int ponteiroTopo;
@@ -60,7 +60,7 @@ public class PilhaEstatica implements Empilhavel {
 
     @Override
     public boolean estaCheia() {
-        return ponteiroTopo == dados.length -1;
+        return ponteiroTopo == dados.length - 1;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class PilhaEstatica implements Empilhavel {
     public String imprimir() {
         String retorno = "[";
         for (int i = ponteiroTopo; i >= 0; i--) {
-            if (i == 0 ) {
+            if (i == 0) {
                 retorno += dados[i];
             } else {
                 retorno += dados[i] + ",";

@@ -1,10 +1,10 @@
-package Fila.FilaComPilha;
+package Fila.FilaEstaticA.FilaComPilha;
 
 public class FilaComPilhaPrincipal {
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 		Enfileiravel fila = new FilaComPilha();
 		fila.enfileirar("A");
-		System.out.println(fila.frente());		
+		System.out.println(fila.frente());
 		fila.enfileirar("B");
 		fila.enfileirar("C");
 		fila.atualizarInicio("R");
@@ -14,13 +14,13 @@ public class FilaComPilhaPrincipal {
 		Object conteudo = fila.desenfileirar();
 		fila.enfileirar("F");
 		System.out.println(fila.frente());
-		System.out.println(fila.frente());		
+		System.out.println(fila.frente());
 		fila.enfileirar("G");
 		fila.enfileirar(conteudo);
 		fila.enfileirar("I");
 		fila.enfileirar("J");
 		fila.atualizarFim("S");
-		fila.enfileirar("K");					
+		fila.enfileirar("K");
 		System.out.println("Fila: " + fila.imprimir());
 	}
 }

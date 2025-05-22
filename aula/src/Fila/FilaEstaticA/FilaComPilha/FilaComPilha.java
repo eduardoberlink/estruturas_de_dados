@@ -1,4 +1,4 @@
-package Fila.FilaComPilha;
+package Fila.FilaEstaticA.FilaComPilha;
 
 public class FilaComPilha implements Enfileiravel {
 
@@ -18,11 +18,11 @@ public class FilaComPilha implements Enfileiravel {
     @Override
     public void enfileirar(Object dado) {
         if (!estaCheia()) {
-            while(!p1.estaVazia()){
+            while (!p1.estaVazia()) {
                 p2.empilhar(p1.desempilhar());
             }
             p1.empilhar(dado);
-            while(!p2.estaVazia()){
+            while (!p2.estaVazia()) {
                 p1.empilhar(p2.desempilhar());
             }
         } else {
@@ -33,9 +33,9 @@ public class FilaComPilha implements Enfileiravel {
     @Override
     public Object frente() {
         Object aux = null;
-        if(!estaVazia()){
+        if (!estaVazia()) {
             aux = p1.espiar();
-        }else{
+        } else {
             System.out.println("Queue is empty!");
         }
         return aux;
@@ -53,9 +53,9 @@ public class FilaComPilha implements Enfileiravel {
     @Override
     public Object desenfileirar() {
         Object aux = null;
-        if(!estaVazia()){
+        if (!estaVazia()) {
             aux = p1.desempilhar();
-        }else{
+        } else {
             System.out.println("Queue is empty!");
         }
         return aux;
@@ -73,7 +73,7 @@ public class FilaComPilha implements Enfileiravel {
 
     @Override
     public String imprimir() {
-       return p1.imprimir();
+        return p1.imprimir();
     }
 
 }
