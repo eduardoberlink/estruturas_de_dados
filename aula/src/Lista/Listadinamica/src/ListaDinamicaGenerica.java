@@ -1,8 +1,19 @@
-package Lista.Listadinamica;
+package Lista.Listadinamica.src;
 
+/**
+ * Implementação de uma lista dinâmica duplamente encadeada genérica.
+ * Esta classe implementa uma lista que pode armazenar elementos de qualquer
+ * tipo,
+ * utilizando uma estrutura de nós duplamente encadeados.
+ *
+ * @param <T> o tipo dos elementos armazenados na lista
+ * @author Eduardo Miranda Berlink Santos
+ * @version 1.1
+ * @since 2025-06-09
+ */
 public class ListaDinamicaGenerica<T> implements Listavel<T> {
 
-    private int quantidade;
+	private int quantidade;
 	private int tamanho;
 	private NoDuplo<T> ponteiroInicio;
 	private NoDuplo<T> ponteiroFim;
@@ -20,18 +31,20 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 
 	/**
 	 * Adiciona um dado ao fim da lista.
+	 * 
 	 * @Params: Recebe o dado a ser inserido na lista.
 	 * @Return: Não retorna nada.
-	 * @throws OverflowException Caso se tente inserir um dado na lista e ela já está cheia.
+	 * @throws OverflowException Caso se tente inserir um dado na lista e ela já
+	 *                           está cheia.
 	 */
 	@Override
 	public void anexar(T dado) throws OverflowException {
-		if(!estaCheia()) {
+		if (!estaCheia()) {
 			NoDuplo<T> noTemporario = new NoDuplo<>();
 			noTemporario.setDado(dado);
 			if (!estaVazia()) {
 				ponteiroFim.setProximo(noTemporario);
-			} else  {
+			} else {
 				ponteiroInicio = noTemporario;
 			}
 			noTemporario.setAnterior(ponteiroFim);
@@ -44,21 +57,23 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 
 	/**
 	 * Insere um dado numa posicao específica da lista.
+	 * 
 	 * @Params: Recebe o dado a ser inserido na lista e a sua posição.
 	 * @Return: Não retorna nada.
-	 * @throws OverflowException Caso tente inserir um dado na lista e ela já está cheia.
+	 * @throws OverflowException Caso tente inserir um dado na lista e ela já está
+	 *                           cheia.
 	 */
-	@Override	
+	@Override
 	public void inserir(int posicao, T dado) throws OverflowException {
-		if(!estaCheia()) {
-			if((posicao >= 0) && (posicao <= quantidade)) {
+		if (!estaCheia()) {
+			if ((posicao >= 0) && (posicao <= quantidade)) {
 				NoDuplo<T> noTemporario = new NoDuplo<>();
 				noTemporario.setDado(dado);
 				////////////////////////////////
-				//Codigo de posicionamento do ponteiro auxiliar, no nodo
-				//que serah feita alguma operacao. Lembrando que nesse metodo
-				//auxiliar ira parar no nodo subsequente ao nodo que devera 
-				//ser inserido				
+				// Codigo de posicionamento do ponteiro auxiliar, no nodo
+				// que serah feita alguma operacao. Lembrando que nesse metodo
+				// auxiliar ira parar no nodo subsequente ao nodo que devera
+				// ser inserido
 				NoDuplo<T> ponteiroAnterior = null;
 				NoDuplo<T> ponteiroProximo = ponteiroInicio;
 
@@ -69,25 +84,25 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 
 				if (ponteiroAnterior != null) {
 					ponteiroAnterior.setProximo(noTemporario);
-				//se o anterior é nulo é pq a insercao está sendo no inicio
+					// se o anterior é nulo é pq a insercao está sendo no inicio
 				} else {
 					ponteiroInicio = noTemporario;
 				}
 
 				if (ponteiroProximo != null) {
 					ponteiroProximo.setAnterior(noTemporario);
-				//se o proximo é nulo é pq a insercao está sendo no fim (append)
+					// se o proximo é nulo é pq a insercao está sendo no fim (append)
 				} else {
 					ponteiroFim = noTemporario;
 				}
-				
+
 				noTemporario.setAnterior(ponteiroAnterior);
 				noTemporario.setProximo(ponteiroProximo);
 
 				quantidade++;
-	        } else {
-            	System.err.println("Indice Invalido!");
-            }
+			} else {
+				System.err.println("Indice Invalido!");
+			}
 		} else {
 			throw new OverflowException("Lista Cheia!");
 		}
@@ -95,6 +110,7 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 
 	/**
 	 * Seleciona o dado que está numa posicao logica informada.
+	 * 
 	 * @Params: Recebe uma posição de um objeto da lista.
 	 * @Return: Retorna o objeto da posição indicada.
 	 * @Exception: Não gera exceção.
@@ -105,31 +121,32 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 		if (!estaVazia()) {
 			if ((posicao >= 0) && (posicao < quantidade)) {
 				////////////////////////////////
-				//Codigo de posicionamento do ponteiro auxiliar, no nodo
-				//que será feita alguma operação. Esse codigo é o mesmo
-				//para os metodos update, delete e select
+				// Codigo de posicionamento do ponteiro auxiliar, no nodo
+				// que será feita alguma operação. Esse codigo é o mesmo
+				// para os metodos update, delete e select
 				NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;
 				for (int i = 0; i < posicao; i++) {
 					ponteiroAuxiliar = ponteiroAuxiliar.getProximo();
 				}
 				///////////////////////////////
 				dadoTemporario = ponteiroAuxiliar.getDado();
-            } else {
-               System.err.println("Indice Invalido!");
-            }
+			} else {
+				System.err.println("Indice Invalido!");
+			}
 		} else {
-			System.err.println("Lista Vazia!");	
+			System.err.println("Lista Vazia!");
 		}
 		return dadoTemporario;
 	}
 
 	/**
 	 * Seleciona todos os dado da ED.
+	 * 
 	 * @Params: não recebe nada.
 	 * @Return: Retorna todos os objetos da Lista.
 	 * @Exception: Não gera exceção.
 	 */
-	@SuppressWarnings("unchecked")	
+	@SuppressWarnings("unchecked")
 	@Override
 	public T[] selecionarTodos() {
 		T[] dadosTemporario = (T[]) new Object[quantidade];
@@ -138,57 +155,59 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 			NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;
 			for (int i = 0; i < quantidade; i++) {
 				ponteiroAuxiliar = ponteiroAuxiliar.getProximo();
-				dadosTemporario[i] = ponteiroAuxiliar.getDado();				
+				dadosTemporario[i] = ponteiroAuxiliar.getDado();
 			}
 		} else {
-			System.err.println("Lista Vazia!");	
+			System.err.println("Lista Vazia!");
 		}
 		return dadosTemporario;
 	}
 
 	/**
 	 * Atualiza o dado de uma posicao logica informada por um novo.
+	 * 
 	 * @Params: Recebe uma posição de um objeto da lista, e o novo objeto.
 	 * @Return: Não retorno nada.
 	 * @Exception: Não gera exceção.
-	 */	
+	 */
 	@Override
 	public void atualizar(int posicao, T novoDado) {
 		if (!estaVazia()) {
 			if ((posicao >= 0) && (posicao < quantidade)) {
 				////////////////////////////////
-				//Codigo de posicionamento do ponteiro auxiliar, no nodo
-				//que serah feita alguma operacao. Esse codigo eh o mesmo
-				//para os metodos update, delete e select
+				// Codigo de posicionamento do ponteiro auxiliar, no nodo
+				// que serah feita alguma operacao. Esse codigo eh o mesmo
+				// para os metodos update, delete e select
 				NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;
 				for (int i = 0; i < posicao; i++) {
 					ponteiroAuxiliar = ponteiroAuxiliar.getProximo();
 				}
 				///////////////////////////////
 				ponteiroAuxiliar.setDado(novoDado);
-            } else {
-               System.err.println("Indice Invalido!");
-            }
+			} else {
+				System.err.println("Indice Invalido!");
+			}
 		} else {
 			System.err.println("Lista Vazia!");
 		}
 	}
-	
+
 	/**
 	 * Apaga o dado de uma posicao logica informada.
+	 * 
 	 * @Params: Recebe uma posição de um objeto da lista.
 	 * @Return: O objeto apagado.
 	 * @throws UnderflowException: Caso tente-se apagar um dado de uma lista vazia.
-	 */	 
+	 */
 	@Override
 	public T apagar(int posicao) throws UnderflowException {
 		T dadoTemporario = null;
 		if (!estaVazia()) {
-			if ((posicao >=0) && (posicao < quantidade)) {
+			if ((posicao >= 0) && (posicao < quantidade)) {
 				////////////////////////////////
-				//Codigo de posicionamento do ponteiro auxiliar, no nodo
-				//que serah feita alguma operacao. Esse codigo eh o mesmo
-				//para os metodos update, delete e select
+				// Codigo de posicionamento do ponteiro auxiliar, no nodo
+				// que serah feita alguma operacao. Esse codigo eh o mesmo
+				// para os metodos update, delete e select
 				NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;
 				for (int i = 0; i < posicao; i++) {
 					ponteiroAuxiliar = ponteiroAuxiliar.getProximo();
@@ -201,33 +220,34 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 
 				if (ponteiroAnterior != null) {
 					ponteiroAnterior.setProximo(ponteiroProximo);
-				//remocao do inicio, joga o ponteiro de inicio para o proximo nodo.
+					// remocao do inicio, joga o ponteiro de inicio para o proximo nodo.
 				} else {
 					ponteiroInicio = ponteiroInicio.getProximo();
 				}
 				if (ponteiroProximo != null) {
 					ponteiroProximo.setAnterior(ponteiroAnterior);
-				//remocao do fim, joga o ponteiro de fim para o nodo anterior.
+					// remocao do fim, joga o ponteiro de fim para o nodo anterior.
 				} else {
 					ponteiroFim = ponteiroFim.getAnterior();
 				}
 
 				quantidade--;
-            } else {
-               System.err.println("Indice Invalido!!");
-            } 
+			} else {
+				System.err.println("Indice Invalido!!");
+			}
 		} else {
-			throw new UnderflowException("Lista Vazia!");	
-		}	
-		return dadoTemporario;	
+			throw new UnderflowException("Lista Vazia!");
+		}
+		return dadoTemporario;
 	}
 
 	/**
 	 * Informa se a lista está cheia.
+	 * 
 	 * @Params: Não recebe nada.
 	 * @Return: Um valor lógico informando se a lista está cheia ou não.
 	 * @Exception: Não gera exceção.
-	 */	
+	 */
 	@Override
 	public boolean estaCheia() {
 		return (quantidade == tamanho);
@@ -235,27 +255,29 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 
 	/**
 	 * Informa se a lista está vazia.
+	 * 
 	 * @Params: Não recebe nada.
 	 * @Return: Um valor lógico informando se a lista está vazia ou não.
 	 * @Exception: Não gera exceção.
-	 */	
+	 */
 	@Override
-	 public boolean estaVazia() {
+	public boolean estaVazia() {
 		return (quantidade == 0);
 	}
 
 	/**
 	 * Imprime o conteúdo da lista.
+	 * 
 	 * @Params: Não recebe nada.
 	 * @Return: Uma string com todos os dados da lista separados por ",".
 	 * @Exception: Não gera exceção.
-	 */	
+	 */
 	@Override
 	public String imprimir() {
 		String resultado = "[";
-		NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;		
+		NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;
 		for (int i = 0; i < quantidade; i++) {
-		if (i == quantidade-1) {
+			if (i == quantidade - 1) {
 				resultado += ponteiroAuxiliar.getDado();
 			} else {
 				resultado += ponteiroAuxiliar.getDado() + ",";
@@ -265,4 +287,3 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 		return resultado + "]";
 	}
 }
-

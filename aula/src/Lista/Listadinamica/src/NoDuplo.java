@@ -1,10 +1,10 @@
-package Lista.Listadinamica;
+package Lista.Listadinamica.src;
 
 public class NoDuplo<T> {
 	private NoDuplo<T> anterior;
 	private T dado;
 	private NoDuplo<T> proximo;
-	
+
 	public T getDado() {
 		return dado;
 	}
@@ -20,11 +20,11 @@ public class NoDuplo<T> {
 	public NoDuplo<T> getProximo() {
 		return proximo;
 	}
-	
+
 	public void setAnterior(NoDuplo<T> anterior) {
 		this.anterior = anterior;
 	}
-	
+
 	public void setProximo(NoDuplo<T> proximo) {
 		this.proximo = proximo;
 	}
