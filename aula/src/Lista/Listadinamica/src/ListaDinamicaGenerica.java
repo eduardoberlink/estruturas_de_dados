@@ -146,7 +146,6 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 	 * @Return: Retorna todos os objetos da Lista.
 	 * @Exception: Não gera exceção.
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public T[] selecionarTodos() {
 		T[] dadosTemporario = (T[]) new Object[quantidade];
@@ -202,7 +201,7 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 	@Override
 	public T apagar(int posicao) throws UnderflowException {
 		T dadoTemporario = null;
-		if (!estaVazia()) {
+		if (!estaCheia()) {
 			if ((posicao >= 0) && (posicao < quantidade)) {
 				////////////////////////////////
 				// Codigo de posicionamento do ponteiro auxiliar, no nodo
