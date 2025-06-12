@@ -38,7 +38,7 @@ public interface Listavel<T> {
 	 * @throws UnderflowException        se a lista estiver vazia
 	 * @throws IndexOutOfBoundsException se a posição for inválida
 	 */
-	T selecionar(int posicao);
+	T selecionar(int posicao) throws UnderflowException;
 
 	/**
 	 * Retorna um array contendo todos os elementos da lista.
@@ -46,7 +46,7 @@ public interface Listavel<T> {
 	 * @return array com todos os elementos da lista
 	 * @throws UnderflowException se a lista estiver vazia
 	 */
-	T[] selecionarTodos();
+	T[] selecionarTodos() throws UnderflowException;
 
 	/**
 	 * Atualiza o elemento em uma posição específica da lista.
@@ -56,7 +56,7 @@ public interface Listavel<T> {
 	 * @throws UnderflowException        se a lista estiver vazia
 	 * @throws IndexOutOfBoundsException se a posição for inválida
 	 */
-	void atualizar(int posicao, T novoDado);
+	void atualizar(int posicao, T novoDado) throws UnderflowException;
 
 	/**
 	 * Remove o elemento em uma posição específica da lista.

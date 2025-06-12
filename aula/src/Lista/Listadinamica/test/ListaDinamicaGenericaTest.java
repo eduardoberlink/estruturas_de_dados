@@ -24,9 +24,10 @@ public class ListaDinamicaGenericaTest {
      * Verifica se a lista funciona corretamente com tipos Integer e Double.
      * 
      * @throws OverflowException
+     * @throws UnderflowException
      */
     @Test
-    public void testListaComDiferentesTipos() throws OverflowException {
+    public void testListaComDiferentesTipos() throws OverflowException, UnderflowException {
         Listavel<Integer> listaInt = new ListaDinamicaGenerica<>(2);
         listaInt.anexar(1);
         listaInt.anexar(2);
@@ -89,9 +90,10 @@ public class ListaDinamicaGenericaTest {
      * Verifica se os elementos são inseridos corretamente no final da lista.
      * 
      * @throws OverflowException
+     * @throws UnderflowException
      */
     @Test
-    public void testAnexar() throws OverflowException {
+    public void testAnexar() throws OverflowException, UnderflowException {
         Listavel<String> lista = new ListaDinamicaGenerica<>(3);
         lista.anexar("A");
         lista.anexar("B");
@@ -106,9 +108,10 @@ public class ListaDinamicaGenericaTest {
      * Verifica se os elementos são inseridos corretamente em posições específicas.
      * 
      * @throws OverflowException
+     * @throws UnderflowException
      */
     @Test
-    public void testInserir() throws OverflowException {
+    public void testInserir() throws OverflowException, UnderflowException {
         Listavel<String> lista = new ListaDinamicaGenerica<>(3);
         lista.inserir(0, "A");
         lista.inserir(1, "C");
@@ -140,9 +143,10 @@ public class ListaDinamicaGenericaTest {
      * Verifica se os elementos são recuperados corretamente de suas posições.
      * 
      * @throws OverflowException
+     * @throws UnderflowException
      */
     @Test
-    public void testSelecionar() throws OverflowException {
+    public void testSelecionar() throws OverflowException, UnderflowException {
         Listavel<String> lista = new ListaDinamicaGenerica<>(3);
         lista.anexar("A");
         lista.anexar("B");
@@ -157,9 +161,10 @@ public class ListaDinamicaGenericaTest {
      * Verifica se uma exceção é lançada ao tentar selecionar posição inválida.
      * 
      * @throws OverflowException
+     * @throws UnderflowException
      */
     @Test
-    public void testSelecionarPosicaoInvalida() throws OverflowException {
+    public void testSelecionarPosicaoInvalida() throws OverflowException, UnderflowException {
         Listavel<String> lista = new ListaDinamicaGenerica<>(3);
         lista.anexar("A");
         try {
@@ -175,9 +180,10 @@ public class ListaDinamicaGenericaTest {
      * Verifica se todos os elementos são recuperados corretamente.
      * 
      * @throws OverflowException
+     * @throws UnderflowException
      */
     @Test
-    public void testSelecionarTodos() throws OverflowException {
+    public void testSelecionarTodos() throws OverflowException, UnderflowException {
         Listavel<String> lista = new ListaDinamicaGenerica<>(3);
         lista.anexar("A");
         lista.anexar("B");
@@ -195,10 +201,14 @@ public class ListaDinamicaGenericaTest {
      * de uma lista vazia.
      */
     @Test
-    public void testSelecionarTodosVazia() throws UnderflowException {
+    public void testSelecionarTodosVazia() {
         Listavel<String> lista = new ListaDinamicaGenerica<>(3);
-        lista.selecionarTodos();
-        fail("Deveria ter lançado exceção de lista vazia!");
+        try {
+            lista.selecionarTodos();
+            fail("Deveria ter lançado exceção de lista vazia!");
+        } catch (UnderflowException e) {
+            assertEquals("Lista Vazia!", e.getMessage());
+        }
     }
 
     /**
@@ -206,9 +216,10 @@ public class ListaDinamicaGenericaTest {
      * Verifica se os elementos são atualizados corretamente em suas posições.
      * 
      * @throws OverflowException
+     * @throws UnderflowException
      */
     @Test
-    public void testAtualizar() throws OverflowException {
+    public void testAtualizar() throws OverflowException, UnderflowException {
         Listavel<String> lista = new ListaDinamicaGenerica<>(3);
         lista.anexar("A");
         lista.anexar("B");
@@ -224,9 +235,10 @@ public class ListaDinamicaGenericaTest {
      * Verifica se uma exceção é lançada ao tentar atualizar posição inválida.
      * 
      * @throws OverflowException
+     * @throws UnderflowException
      */
     @Test
-    public void testAtualizarPosicaoInvalida() throws OverflowException {
+    public void testAtualizarPosicaoInvalida() throws OverflowException, UnderflowException {
         Listavel<String> lista = new ListaDinamicaGenerica<>(3);
         lista.anexar("A");
         try {
@@ -337,9 +349,10 @@ public class ListaDinamicaGenericaTest {
      * Verifica se múltiplas operações funcionam corretamente em sequência.
      * 
      * @throws OverflowException
+     * @throws UnderflowException
      */
     @Test
-    public void testOperacoesCombinadas() throws OverflowException {
+    public void testOperacoesCombinadas() throws OverflowException, UnderflowException {
         Listavel<String> lista = new ListaDinamicaGenerica<>(5);
         lista.anexar("A");
         lista.inserir(1, "B");

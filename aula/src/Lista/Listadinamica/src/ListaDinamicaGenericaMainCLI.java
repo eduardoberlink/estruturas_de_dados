@@ -25,8 +25,9 @@ public class ListaDinamicaGenericaMainCLI {
 	 * Método principal que inicia o programa.
 	 *
 	 * @param args argumentos da linha de comando (não utilizados)
+	 * @throws UnderflowException
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnderflowException {
 		scanner = new Scanner(System.in);
 		lista = new ListaDinamicaGenerica<>(5);
 		executar();
@@ -35,8 +36,10 @@ public class ListaDinamicaGenericaMainCLI {
 	/**
 	 * Executa o loop principal do programa, exibindo o menu e processando as opções
 	 * do usuário.
+	 * 
+	 * @throws UnderflowException
 	 */
-	private static void executar() {
+	private static void executar() throws UnderflowException {
 		int opcao;
 		do {
 			exibirMenu();
@@ -77,8 +80,9 @@ public class ListaDinamicaGenericaMainCLI {
 	 * correspondente.
 	 *
 	 * @param opcao a opção escolhida pelo usuário
+	 * @throws UnderflowException
 	 */
-	private static void processarOpcao(int opcao) {
+	private static void processarOpcao(int opcao) throws UnderflowException {
 		switch (opcao) {
 			case 1:
 				anexar();
@@ -134,8 +138,10 @@ public class ListaDinamicaGenericaMainCLI {
 	/**
 	 * Insere um elemento em uma posição específica da lista.
 	 * Solicita ao usuário a posição e o elemento a ser inserido.
+	 * 
+	 * @throws UnderflowException
 	 */
-	private static void inserir() {
+	private static void inserir() throws UnderflowException {
 		System.out.print(
 				"Digite a posição (0-" + (lista.estaVazia() ? "0" : (lista.selecionarTodos().length - 1)) + "): ");
 		int posicao = scanner.nextInt();
@@ -153,8 +159,10 @@ public class ListaDinamicaGenericaMainCLI {
 	/**
 	 * Seleciona e exibe o elemento em uma posição específica da lista.
 	 * Solicita ao usuário a posição do elemento.
+	 * 
+	 * @throws UnderflowException
 	 */
-	private static void selecionar() {
+	private static void selecionar() throws UnderflowException {
 		System.out.print(
 				"Digite a posição (0-" + (lista.estaVazia() ? "0" : (lista.selecionarTodos().length - 1)) + "): ");
 		int posicao = scanner.nextInt();
@@ -184,8 +192,10 @@ public class ListaDinamicaGenericaMainCLI {
 	/**
 	 * Atualiza o elemento em uma posição específica da lista.
 	 * Solicita ao usuário a posição e o novo elemento.
+	 * 
+	 * @throws UnderflowException
 	 */
-	private static void atualizar() {
+	private static void atualizar() throws UnderflowException {
 		System.out.print(
 				"Digite a posição (0-" + (lista.estaVazia() ? "0" : (lista.selecionarTodos().length - 1)) + "): ");
 		int posicao = scanner.nextInt();
@@ -203,8 +213,10 @@ public class ListaDinamicaGenericaMainCLI {
 	/**
 	 * Remove e exibe o elemento em uma posição específica da lista.
 	 * Solicita ao usuário a posição do elemento a ser removido.
+	 * 
+	 * @throws UnderflowException
 	 */
-	private static void apagar() {
+	private static void apagar() throws UnderflowException {
 		System.out.print(
 				"Digite a posição (0-" + (lista.estaVazia() ? "0" : (lista.selecionarTodos().length - 1)) + "): ");
 		int posicao = scanner.nextInt();

@@ -39,20 +39,19 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 	 */
 	@Override
 	public void anexar(T dado) throws OverflowException {
-		if (!estaCheia()) {
-			NoDuplo<T> noTemporario = new NoDuplo<>();
-			noTemporario.setDado(dado);
-			if (!estaVazia()) {
-				ponteiroFim.setProximo(noTemporario);
-			} else {
-				ponteiroInicio = noTemporario;
-			}
-			noTemporario.setAnterior(ponteiroFim);
-			ponteiroFim = noTemporario;
-			quantidade++;
-		} else {
-			throw new OverflowException("Fila Cheia!");
+		if (estaCheia()) {
+			throw new OverflowException("Lista Cheia!");
 		}
+		NoDuplo<T> noTemporario = new NoDuplo<>();
+		noTemporario.setDado(dado);
+		if (!estaVazia()) {
+			ponteiroFim.setProximo(noTemporario);
+			noTemporario.setAnterior(ponteiroFim);
+		} else {
+			ponteiroInicio = noTemporario;
+		}
+		ponteiroFim = noTemporario;
+		quantidade++;
 	}
 
 	/**
@@ -65,99 +64,88 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 	 */
 	@Override
 	public void inserir(int posicao, T dado) throws OverflowException {
-		if (!estaCheia()) {
-			if ((posicao >= 0) && (posicao <= quantidade)) {
-				NoDuplo<T> noTemporario = new NoDuplo<>();
-				noTemporario.setDado(dado);
-				////////////////////////////////
-				// Codigo de posicionamento do ponteiro auxiliar, no nodo
-				// que serah feita alguma operacao. Lembrando que nesse metodo
-				// auxiliar ira parar no nodo subsequente ao nodo que devera
-				// ser inserido
-				NoDuplo<T> ponteiroAnterior = null;
-				NoDuplo<T> ponteiroProximo = ponteiroInicio;
-
-				for (int i = 0; i < posicao; i++) {
-					ponteiroAnterior = ponteiroProximo;
-					ponteiroProximo = ponteiroProximo.getProximo();
-				}
-
-				if (ponteiroAnterior != null) {
-					ponteiroAnterior.setProximo(noTemporario);
-					// se o anterior é nulo é pq a insercao está sendo no inicio
-				} else {
-					ponteiroInicio = noTemporario;
-				}
-
-				if (ponteiroProximo != null) {
-					ponteiroProximo.setAnterior(noTemporario);
-					// se o proximo é nulo é pq a insercao está sendo no fim (append)
-				} else {
-					ponteiroFim = noTemporario;
-				}
-
-				noTemporario.setAnterior(ponteiroAnterior);
-				noTemporario.setProximo(ponteiroProximo);
-
-				quantidade++;
-			} else {
-				System.err.println("Indice Invalido!");
-			}
-		} else {
+		if (estaCheia()) {
 			throw new OverflowException("Lista Cheia!");
 		}
+		if (!(posicao >= 0 && posicao <= quantidade)) {
+			throw new IndexOutOfBoundsException("Indice Invalido!");
+		}
+		NoDuplo<T> noTemporario = new NoDuplo<>();
+		noTemporario.setDado(dado);
+
+		NoDuplo<T> ponteiroAnterior = null;
+		NoDuplo<T> ponteiroProximo = ponteiroInicio;
+
+		for (int i = 0; i < posicao; i++) {
+			ponteiroAnterior = ponteiroProximo;
+			ponteiroProximo = ponteiroProximo.getProximo();
+		}
+
+		if (ponteiroAnterior != null) {
+			ponteiroAnterior.setProximo(noTemporario);
+			// se o anterior é nulo é pq a insercao está sendo no inicio
+		} else {
+			ponteiroInicio = noTemporario;
+		}
+
+		if (ponteiroProximo != null) {
+			ponteiroProximo.setAnterior(noTemporario);
+			// se o proximo é nulo é pq a insercao está sendo no fim (append)
+		} else {
+			ponteiroFim = noTemporario;
+		}
+
+		noTemporario.setAnterior(ponteiroAnterior);
+		noTemporario.setProximo(ponteiroProximo);
+
+		quantidade++;
 	}
 
 	/**
 	 * Seleciona o dado que está numa posicao logica informada.
+	 * 
+	 * @throws UnderflowException
 	 * 
 	 * @Params: Recebe uma posição de um objeto da lista.
 	 * @Return: Retorna o objeto da posição indicada.
 	 * @Exception: Não gera exceção.
 	 */
 	@Override
-	public T selecionar(int posicao) {
-		T dadoTemporario = null;
-		if (!estaVazia()) {
-			if ((posicao >= 0) && (posicao < quantidade)) {
-				////////////////////////////////
-				// Codigo de posicionamento do ponteiro auxiliar, no nodo
-				// que será feita alguma operação. Esse codigo é o mesmo
-				// para os metodos update, delete e select
-				NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;
-				for (int i = 0; i < posicao; i++) {
-					ponteiroAuxiliar = ponteiroAuxiliar.getProximo();
-				}
-				///////////////////////////////
-				dadoTemporario = ponteiroAuxiliar.getDado();
-			} else {
-				System.err.println("Indice Invalido!");
-			}
-		} else {
-			System.err.println("Lista Vazia!");
+	public T selecionar(int posicao) throws UnderflowException {
+		if (estaVazia()) {
+			throw new UnderflowException("Lista Vazia!");
 		}
-		return dadoTemporario;
+		if (!(posicao >= 0 && posicao < quantidade)) {
+			throw new IndexOutOfBoundsException("Indice Invalido!");
+		}
+
+		NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;
+		for (int i = 0; i < posicao; i++) {
+			ponteiroAuxiliar = ponteiroAuxiliar.getProximo();
+		}
+		return ponteiroAuxiliar.getDado();
 	}
 
 	/**
 	 * Seleciona todos os dado da ED.
 	 * 
+	 * @throws UnderflowException
+	 * 
 	 * @Params: não recebe nada.
 	 * @Return: Retorna todos os objetos da Lista.
 	 * @Exception: Não gera exceção.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public T[] selecionarTodos() {
+	public T[] selecionarTodos() throws UnderflowException {
+		if (estaVazia()) {
+			throw new UnderflowException("Lista Vazia!");
+		}
 		T[] dadosTemporario = (T[]) new Object[quantidade];
-		if (!estaVazia()) {
-
-			NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;
-			for (int i = 0; i < quantidade; i++) {
-				ponteiroAuxiliar = ponteiroAuxiliar.getProximo();
-				dadosTemporario[i] = ponteiroAuxiliar.getDado();
-			}
-		} else {
-			System.err.println("Lista Vazia!");
+		NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;
+		for (int i = 0; i < quantidade; i++) {
+			dadosTemporario[i] = ponteiroAuxiliar.getDado();
+			ponteiroAuxiliar = ponteiroAuxiliar.getProximo();
 		}
 		return dadosTemporario;
 	}
@@ -165,30 +153,26 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 	/**
 	 * Atualiza o dado de uma posicao logica informada por um novo.
 	 * 
+	 * @throws UnderflowException
+	 * 
 	 * @Params: Recebe uma posição de um objeto da lista, e o novo objeto.
 	 * @Return: Não retorno nada.
 	 * @Exception: Não gera exceção.
 	 */
 	@Override
-	public void atualizar(int posicao, T novoDado) {
-		if (!estaVazia()) {
-			if ((posicao >= 0) && (posicao < quantidade)) {
-				////////////////////////////////
-				// Codigo de posicionamento do ponteiro auxiliar, no nodo
-				// que serah feita alguma operacao. Esse codigo eh o mesmo
-				// para os metodos update, delete e select
-				NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;
-				for (int i = 0; i < posicao; i++) {
-					ponteiroAuxiliar = ponteiroAuxiliar.getProximo();
-				}
-				///////////////////////////////
-				ponteiroAuxiliar.setDado(novoDado);
-			} else {
-				System.err.println("Indice Invalido!");
-			}
-		} else {
-			System.err.println("Lista Vazia!");
+	public void atualizar(int posicao, T novoDado) throws UnderflowException {
+		if (estaVazia()) {
+			throw new UnderflowException("Lista Vazia!");
 		}
+		if (!(posicao >= 0 && posicao < quantidade)) {
+			throw new IndexOutOfBoundsException("Indice Invalido!");
+		}
+
+		NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;
+		for (int i = 0; i < posicao; i++) {
+			ponteiroAuxiliar = ponteiroAuxiliar.getProximo();
+		}
+		ponteiroAuxiliar.setDado(novoDado);
 	}
 
 	/**
@@ -200,44 +184,36 @@ public class ListaDinamicaGenerica<T> implements Listavel<T> {
 	 */
 	@Override
 	public T apagar(int posicao) throws UnderflowException {
-		T dadoTemporario = null;
-		if (!estaCheia()) {
-			if ((posicao >= 0) && (posicao < quantidade)) {
-				////////////////////////////////
-				// Codigo de posicionamento do ponteiro auxiliar, no nodo
-				// que serah feita alguma operacao. Esse codigo eh o mesmo
-				// para os metodos update, delete e select
-				NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;
-				for (int i = 0; i < posicao; i++) {
-					ponteiroAuxiliar = ponteiroAuxiliar.getProximo();
-				}
-				///////////////////////////////
-				dadoTemporario = ponteiroAuxiliar.getDado();
-
-				NoDuplo<T> ponteiroAnterior = ponteiroAuxiliar.getAnterior();
-				NoDuplo<T> ponteiroProximo = ponteiroAuxiliar.getProximo();
-
-				if (ponteiroAnterior != null) {
-					ponteiroAnterior.setProximo(ponteiroProximo);
-					// remocao do inicio, joga o ponteiro de inicio para o proximo nodo.
-				} else {
-					ponteiroInicio = ponteiroInicio.getProximo();
-				}
-				if (ponteiroProximo != null) {
-					ponteiroProximo.setAnterior(ponteiroAnterior);
-					// remocao do fim, joga o ponteiro de fim para o nodo anterior.
-				} else {
-					ponteiroFim = ponteiroFim.getAnterior();
-				}
-
-				quantidade--;
-			} else {
-				System.err.println("Indice Invalido!!");
-			}
-		} else {
+		if (estaVazia()) {
 			throw new UnderflowException("Lista Vazia!");
 		}
-		return dadoTemporario;
+		if (!(posicao >= 0 && posicao < quantidade)) {
+			throw new IndexOutOfBoundsException("Indice Invalido!");
+		}
+
+		NoDuplo<T> ponteiroAuxiliar = ponteiroInicio;
+		for (int i = 0; i < posicao; i++) {
+			ponteiroAuxiliar = ponteiroAuxiliar.getProximo();
+		}
+
+		NoDuplo<T> ponteiroAnterior = ponteiroAuxiliar.getAnterior();
+		NoDuplo<T> ponteiroProximo = ponteiroAuxiliar.getProximo();
+
+		if (ponteiroAnterior != null) {
+			ponteiroAnterior.setProximo(ponteiroProximo);
+			// remocao do inicio, joga o ponteiro de inicio para o proximo nodo.
+		} else {
+			ponteiroInicio = ponteiroInicio.getProximo();
+		}
+		if (ponteiroProximo != null) {
+			ponteiroProximo.setAnterior(ponteiroAnterior);
+			// remocao do fim, joga o ponteiro de fim para o nodo anterior.
+		} else {
+			ponteiroFim = ponteiroFim.getAnterior();
+		}
+
+		quantidade--;
+		return ponteiroAuxiliar.getDado();
 	}
 
 	/**

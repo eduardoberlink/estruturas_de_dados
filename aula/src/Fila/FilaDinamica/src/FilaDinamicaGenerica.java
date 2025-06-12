@@ -205,10 +205,10 @@ public class FilaDinamicaGenerica<T> implements Enfileiravel<T> {
         String resultado = "[";
         NodoDuplo<T> noAuxiliar = ponteiroInicio;
         for (int i = 0; i < quantidade; i++) {
+            resultado += noAuxiliar.getDado();
             if (i != quantidade - 1) {
                 resultado += ",";
             }
-            resultado += noAuxiliar.getDado();
             noAuxiliar = noAuxiliar.getProximo();
         }
         return resultado + "]";
