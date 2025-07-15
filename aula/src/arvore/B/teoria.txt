@@ -1,0 +1,42 @@
+A árvore B é uma estrutura de dados em árvore balanceada amplamente utilizada em sistemas de bancos de dados, sistemas de arquivos 
+e outras aplicações que lidam com grandes volumes de dados armazenados em disco. Ela foi projetada para minimizar o número de acessos
+ ao disco, otimizando a leitura e escrita em memória secundária.
+
+📌 Definição
+Uma árvore B é uma árvore de busca balanceada que:
+
+Mantém os dados ordenados.
+
+Permite buscas, inserções, remoções e varreduras (caminhamento) em tempo logarítmico.
+
+Garante que a árvore tenha altura logarítmica, mesmo com um grande número de elementos.
+
+📌 Propriedades de uma Árvore B de ordem m
+Cada nó pode ter no máximo m filhos.
+
+Cada nó interno (exceto a raiz) tem no mínimo ⌈m/2⌉ filhos.
+
+A raiz deve ter pelo menos dois filhos (salvo se for uma folha).
+
+Todos os nós folha estão no mesmo nível (árvore balanceada).
+
+Cada nó contém um número de chaves que varia entre ⌈m/2⌉ - 1 e m - 1.
+
+📌 Exemplo de Árvore B de ordem 4
+Cada nó pode ter 2 a 4 filhos.
+
+Cada nó pode conter 1 a 3 chaves.
+
+📌 Operações em Árvore B
+Busca: similar à busca binária dentro de cada nó e entre os filhos.
+
+Inserção:
+
+Insere a chave no nó folha adequado.
+
+Caso o nó ultrapasse o limite de chaves, ocorre uma divisão do nó (split) e propagação para o nível superior.
+
+Remoção:
+
+Remove a chave e ajusta a árvore para manter as propriedades (pode haver fusão ou redistribuição de chaves).
+
