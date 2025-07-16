@@ -1,0 +1,44 @@
+A árvore B+ é uma estrutura de dados do tipo árvore balanceada amplamente utilizada em bancos de dados, 
+sistemas de arquivos e índices de armazenamento, principalmente porque permite buscas, inserções, remoções
+ e percursos em tempo logarítmico de forma eficiente, mesmo com grandes volumes de dados.
+
+📌 Conceito
+A árvore B+ é uma variação da árvore B, mas com algumas diferenças importantes:
+
+Todos os dados (valores ou registros completos) são armazenados apenas nas folhas.
+
+Os nós internos armazenam apenas chaves de indexação, que servem como guias para localizar rapidamente os dados nas folhas.
+
+As folhas da árvore B+ estão ligadas entre si por ponteiros sequenciais, formando uma lista encadeada ordenada, o que facilita operações como varreduras ordenadas, intervalos e buscas sequenciais.
+
+
+📌 Propriedades
+Balanceamento automático: a altura da árvore é sempre mantida mínima possível, evitando degradação de desempenho.
+
+Altura baixa: geralmente, as árvores B+ são baixas e largas, já que cada nó pode ter muitos filhos, reduzindo o número de níveis e, portanto, o custo das operações.
+
+Todos os caminhos da raiz até as folhas possuem o mesmo comprimento (é uma árvore balanceada por altura).
+
+Cada nó possui um número mínimo e máximo de chaves:
+
+Um nó interno pode ter até M filhos (grau da árvore).
+
+Deve ter no mínimo ⌈M/2⌉ filhos, exceto a raiz.
+
+Folhas ligadas sequencialmente para facilitar buscas ordenadas.
+
+
+📌 Operações
+Busca: percorre a árvore de cima para baixo, seguindo as chaves dos nós internos até chegar à folha, onde o dado é encontrado ou a ausência confirmada.
+
+Inserção: o valor é inserido na folha correspondente. Caso o nó fique cheio, ocorre o split (divisão), que pode propagar para os níveis superiores.
+
+Remoção: o valor é removido da folha. Se o número de elementos cair abaixo do mínimo, pode haver fusão ou redistribuição de chaves com os nós irmãos.
+
+
+📌 Vantagens
+Excelente desempenho para operações em intervalos e percursos ordenados.
+
+Bom para grandes volumes de dados armazenados em disco, pois minimiza o número de acessos ao disco (graças ao baixo número de níveis).
+
+Muito usado em SGBDs (Sistemas de Gerenciamento de Banco de Dados), como índices primários e secundários.
